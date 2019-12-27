@@ -1,0 +1,1 @@
+select subject_area, author, no_of_copies, (CURRENT_DATE-issue_date) as No_of_days_loaned_out from books,return_status WHERE books.title = return_status.title and issue_date >= '2019-04-01' and issue_date <= '2019-04-07';

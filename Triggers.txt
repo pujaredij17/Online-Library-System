@@ -1,0 +1,22 @@
+-- Triggers `return_status`
+--
+DELIMITER $$
+CREATE TRIGGER `BOOK_OVERDUE1` BEFORE INSERT ON `return_status` FOR EACH ROW BEGIN
+if ((SELECT expiry_date from return_status where m_ssn = new.m_ssn and expiry_date < CURRENT_DATE) < CURRENT_DATE) THEN
+UPDATE return_status SET m_ssn = 0000 WHERE m_ssn = new.m_ssn;
+
+end if;
+
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `renew_membership` AFTER INSERT ON `return_status` FOR EACH ROW BEGIN
+if ((SELECT expiry_date from membership where m_ssn = new.m_ssn and expiry_date < CURRENT_DATE) < CURRENT_DATE) THEN
+UPDATE return_status SET m_ssn = 0000 WHERE m_ssn = new.m_ssn;
+
+end if;
+
+END
+$$
+DELIMITER ;

@@ -1,0 +1,14 @@
+#Books
+select isbn, author, title,subject_area,no_of_copies,book_description from books;
+
+#Member
+select * from member;
+
+#Membership
+select * from membership;
+
+#Staff
+select * from staff;
+
+#Member+Return_status
+select * from member, return_status where member.ssn = return_status.m_ssn;
